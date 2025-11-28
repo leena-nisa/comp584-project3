@@ -3,90 +3,111 @@ https://www.paulirish.com/2012/box-sizing-border-box-ftw/ */
 html {
   box-sizing: border-box;
 }
+
 /* inherit border-box on all elements in the universe and before and after
  */
-*, 
-*:before, 
-*:after {
+*,
+*::before,
+*::after {
   box-sizing: inherit;
 }
 
 body {
-	font-family: Arial, Geneva, sans-serif;
+  font-family: Arial, Geneva, sans-serif;
+  margin: 0;
+  background-color: #f4f6fb;
 }
+
 a {
-	color: #2772B0;
+  color: #2772B0;
 }
+
 .wrapper {
-	width: 97%;
-	max-width: 1200px;
-	margin: 0 auto;
-	float: none;
-	background-color: #fff;
+  width: 97%;
+  max-width: 1200px;
+  margin: 0 auto;
+  float: none;
+  background-color: #fff;
 }
 
 div img {
-	width: 100%;
-	max-width: 225px; 
+  width: 100%;
+  max-width: 225px;
 }
 
 /* grid system - mobile first! */
-/* flex contatiner */
 
+/* Each row becomes a grid container.
+   Mobile-first: begin with a single column. */
 .row {
-	display: flex;
-	flex-flow: row wrap;
+  display: grid;
+  grid-template-columns: 1fr;
+
+  /* This sets the height of rows that the browser creates automatically.
+     Using “auto” lets each row expand naturally based on its content
+     instead of forcing equal heights. */
+  grid-auto-rows: auto;
+
+  /* Space between grid items */
+  gap: 16px;
+
+  margin-bottom: 16px;
 }
 
-/* attribute selector to give some margin between columns and apply styles to flex items */
-
+/* attribute selector to give some margin between columns and apply styles to items */
 [class*="col-"] {
-	margin-left: 4%;
-	flex: 0 0 92%;
+  padding: 12px;
+  border-radius: 12px;
 }
 
 /* Add background colors to see how much space each column is taking */
-
 .col-1 {
-	background-color: #A3CDD9;
+  background-color: #A3CDD9;
 }
 
 .col-2 {
-	background-color: #FFFCE6;
+  background-color: #FFFCE6;
 }
 
-/* Tablet Landscape Screen Sizes */
-@media only screen and (min-width: 480px)  {
-	
-  .col-1,
-  .col-2 {
-		flex: 0 0 44%;
-	}
+/* additional column types for wider rows */
+.col-3 {
+  background-color: #E7F8FF;
+} /* used in row 3 */
 
-}
-/* Desktop screen Sizes */
-@media only screen and (min-width: 768px) {
-  
- 	.col-1 {
-		flex: 0 0 20%;
-	}
-  
-	.col-2 {
-		flex: 0 0 44%;
-	}
-
-}
+.col-4 {
+  background-color: #F3F7FF;
+} /* used in row 4 */
 
 /* card section */
 .card {
   padding: 12px;
   border-radius: 12px;
   background: #fffaf1;
-  box-shadow: 0 4px 10px rgba(0,0,0,.08);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
 }
-.card h2 { margin: 8px 0 6px; }
-.card p  { margin: 0 0 8px; color: #444; }
-.card .more { font-weight: 700; text-decoration: none; }
+
+.card h2 {
+  margin: 8px 0 6px;
+}
+
+.card p {
+  margin: 0 0 8px;
+  color: #444;
+}
+
+.card .more {
+  font-weight: 700;
+  text-decoration: none;
+}
+
+/* make card images a uniform height */
+.card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  max-width: none;
+  border-radius: 10px;
+}
 
 /* site header */
 .site-header {
@@ -98,98 +119,109 @@ div img {
   border-radius: 8px;
 }
 
-/* additional column types for wider rows */
-.col-3 { background-color: #E7F8FF; } /* used in row 3 */
-.col-4 { background-color: #F3F7FF; } /* used in row 4 */
-
-/* make card images a uniform height */
-.card img {
-  width: 100%;
-  height: 180px;
-  object-fit: cover;
-  max-width: none;
-  border-radius: 10px;
-}
-
 /* hero section (row 4 full width image with overlay text) */
 .hero {
   position: relative;
   overflow: hidden;
   border-radius: 12px;
   background: #eaf5ff;
+
+  /* Make hero span the entire width of the row */
+  grid-column: 1 / -1;
 }
+
 .hero img {
   width: 100%;
   height: 260px;
   object-fit: cover;
 }
+
 .hero .hero-text {
   position: absolute;
-  left: 12px; right: 12px; bottom: 12px;
-  background: rgba(0,0,0,.6);
+  left: 12px;
+  right: 12px;
+  bottom: 12px;
+  background: rgba(0, 0, 0, 0.6);
   color: #fff;
   padding: 10px 12px;
   border-radius: 10px;
 }
 
-/* order property controls how items rearrange on resize */
-.row-3 .row3-a { order: 2; }
-.row-3 .row3-b { order: 1; }
-
-.row-5 .row5-a { order: 1; }
-.row-5 .row5-b { order: 2; }
-.row-5 .row5-c { order: 3; }
-
-/* tablet layout adjustments for larger columns */
-@media only screen and (min-width: 480px)  {
-  .col-3 { flex: 0 0 92%; }
-  .col-4 { flex: 0 0 92%; }
-
-  .row-3 .row3-b { order: 1; }
-  .row-3 .row3-a { order: 2; }
-
-  .row-5 .row5-a { order: 1; }
-  .row-5 .row5-c { order: 2; }
-  .row-5 .row5-b { order: 3; }
+/* Row 3 default layout: wide card on top, narrow below */
+.row-3 {
+  grid-template-areas:
+    "wide"
+    "narrow";
 }
 
-/* desktop layout adjustments */
-@media only screen and (min-width: 768px) {
-  .col-3 { flex: 0 0 72%; } /* 1-col + 3-col math */
-  .col-4 { flex: 0 0 96%; } /* full width hero */
+/* These assign specific grid areas to row 3 cards */
+.row3-a {
+  grid-area: narrow;
+}
 
-  .row-3 .row3-a { order: 1; }
-  .row-3 .row3-b { order: 2; }
+.row3-b {
+  grid-area: wide;
+}
 
-  .row-5 .row5-a { order: 1; }
-  .row-5 .row5-b { order: 2; }
-  .row-5 .row5-c { order: 3; }
+/* Row 5 default layout: items stacked in order */
+.row-5 {
+  grid-template-areas:
+    "left"
+    "middle"
+    "right";
+}
+
+.row5-a {
+  grid-area: left;
+}
+
+.row5-b {
+  grid-area: middle;
+}
+
+.row5-c {
+  grid-area: right;
 }
 
 /* unique gallery section for bottom row */
 .row-6.gallery {
-  width: 100%;
-  justify-content: center;
+  display: grid;
+
+  /* This creates as many columns as can fit.
+     Each column must be at least 120px wide,
+     and will grow to fill extra space. */
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+
+  /* Keeps gallery rows at a minimum height while still
+     allowing them to grow if needed. */
+  grid-auto-rows: minmax(140px, auto);
+
+  /* This centers items inside each grid cell horizontally.
+     It keeps thumbnails neatly centered rather than stretched. */
+  justify-items: center;
+
+  /* Align items to the top of each grid row */
+  align-items: start;
+
   gap: 16px;
   padding: 10px 0 26px;
 }
 
 /* small image thumbnails */
 .thumb {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  flex: 0 0 140px;
   text-align: center;
 }
+
 .thumb img {
   width: 100%;
   height: 100px;
   object-fit: cover;
   border-radius: 10px;
-  box-shadow: 0 1px 2px rgba(0,0,0,.05),
-              0 6px 12px rgba(0,0,0,.08);
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.05),
+    0 6px 12px rgba(0, 0, 0, 0.08);
 }
+
 .thumb figcaption {
   margin-top: 8px;
   font-size: 0.92rem;
@@ -198,12 +230,63 @@ div img {
   line-height: 1.2;
 }
 
-/* slightly larger thumbnails on wider screens */
-@media only screen and (min-width: 600px) {
-  .thumb { flex-basis: 150px; }
-  .thumb img { height: 110px; }
+/* Tablet Landscape Screen Sizes */
+@media only screen and (min-width: 480px) {
+
+  .row-1,
+  .row-2 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .col-3 {
+    grid-template-columns: 1fr;
+  }
+
+  .col-4 {
+    grid-template-columns: 1fr;
+  }
+
+  .row-3 {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "wide"
+      "narrow";
+  }
+
+  .row-5 {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-areas:
+      "middle middle"
+      "left   right";
+  }
 }
-@media only screen and (min-width: 960px) {
-  .thumb { flex-basis: 160px; }
-  .thumb img { height: 120px; }
+
+/* Desktop screen Sizes */
+@media only screen and (min-width: 768px) {
+
+  .row-1 {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .row-2 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .col-3 {
+    grid-template-columns: 1fr 3fr;
+  }
+
+  .col-4 {
+    grid-template-columns: 1fr;
+  }
+
+  .row-3 {
+    grid-template-columns: 1fr 3fr;
+    grid-template-areas: "narrow wide";
+  }
+
+  .row-5 {
+    grid-template-columns: 1fr 2fr 1fr;
+    grid-template-areas: "left middle right";
+  }
 }
