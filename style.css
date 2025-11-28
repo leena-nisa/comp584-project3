@@ -188,13 +188,13 @@ div img {
   display: grid;
 
   /* This creates as many columns as can fit.
-     Each column must be at least 120px wide,
+     Each column must be at least 150px wide,
      and will grow to fill extra space. */
-  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
 
   /* Keeps gallery rows at a minimum height while still
      allowing them to grow if needed. */
-  grid-auto-rows: minmax(140px, auto);
+  grid-auto-rows: minmax(160px, auto);
 
   /* This centers items inside each grid cell horizontally.
      It keeps thumbnails neatly centered rather than stretched. */
@@ -210,6 +210,10 @@ div img {
 /* small image thumbnails */
 .thumb {
   text-align: center;
+
+  /* Make each thumbnail box narrower than the grid cell
+     so the centering effect of justify-items is very visible. */
+  width: 140px;
 }
 
 .thumb img {
@@ -238,14 +242,6 @@ div img {
     grid-template-columns: repeat(2, 1fr);
   }
 
-  .col-3 {
-    grid-template-columns: 1fr;
-  }
-
-  .col-4 {
-    grid-template-columns: 1fr;
-  }
-
   .row-3 {
     grid-template-columns: 1fr;
     grid-template-areas:
@@ -270,14 +266,6 @@ div img {
 
   .row-2 {
     grid-template-columns: repeat(2, 1fr);
-  }
-
-  .col-3 {
-    grid-template-columns: 1fr 3fr;
-  }
-
-  .col-4 {
-    grid-template-columns: 1fr;
   }
 
   .row-3 {
