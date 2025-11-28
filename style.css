@@ -1,0 +1,209 @@
+/* Border box declaration 
+https://www.paulirish.com/2012/box-sizing-border-box-ftw/ */
+html {
+  box-sizing: border-box;
+}
+/* inherit border-box on all elements in the universe and before and after
+ */
+*, 
+*:before, 
+*:after {
+  box-sizing: inherit;
+}
+
+body {
+	font-family: Arial, Geneva, sans-serif;
+}
+a {
+	color: #2772B0;
+}
+.wrapper {
+	width: 97%;
+	max-width: 1200px;
+	margin: 0 auto;
+	float: none;
+	background-color: #fff;
+}
+
+div img {
+	width: 100%;
+	max-width: 225px; 
+}
+
+/* grid system - mobile first! */
+/* flex contatiner */
+
+.row {
+	display: flex;
+	flex-flow: row wrap;
+}
+
+/* attribute selector to give some margin between columns and apply styles to flex items */
+
+[class*="col-"] {
+	margin-left: 4%;
+	flex: 0 0 92%;
+}
+
+/* Add background colors to see how much space each column is taking */
+
+.col-1 {
+	background-color: #A3CDD9;
+}
+
+.col-2 {
+	background-color: #FFFCE6;
+}
+
+/* Tablet Landscape Screen Sizes */
+@media only screen and (min-width: 480px)  {
+	
+  .col-1,
+  .col-2 {
+		flex: 0 0 44%;
+	}
+
+}
+/* Desktop screen Sizes */
+@media only screen and (min-width: 768px) {
+  
+ 	.col-1 {
+		flex: 0 0 20%;
+	}
+  
+	.col-2 {
+		flex: 0 0 44%;
+	}
+
+}
+
+/* card section */
+.card {
+  padding: 12px;
+  border-radius: 12px;
+  background: #fffaf1;
+  box-shadow: 0 4px 10px rgba(0,0,0,.08);
+}
+.card h2 { margin: 8px 0 6px; }
+.card p  { margin: 0 0 8px; color: #444; }
+.card .more { font-weight: 700; text-decoration: none; }
+
+/* site header */
+.site-header {
+  text-align: center;
+  padding: 16px 10px;
+  background: #ffcc00;
+  color: #2b1e11;
+  margin-bottom: 10px;
+  border-radius: 8px;
+}
+
+/* additional column types for wider rows */
+.col-3 { background-color: #E7F8FF; } /* used in row 3 */
+.col-4 { background-color: #F3F7FF; } /* used in row 4 */
+
+/* make card images a uniform height */
+.card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  max-width: none;
+  border-radius: 10px;
+}
+
+/* hero section (row 4 full width image with overlay text) */
+.hero {
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px;
+  background: #eaf5ff;
+}
+.hero img {
+  width: 100%;
+  height: 260px;
+  object-fit: cover;
+}
+.hero .hero-text {
+  position: absolute;
+  left: 12px; right: 12px; bottom: 12px;
+  background: rgba(0,0,0,.6);
+  color: #fff;
+  padding: 10px 12px;
+  border-radius: 10px;
+}
+
+/* order property controls how items rearrange on resize */
+.row-3 .row3-a { order: 2; }
+.row-3 .row3-b { order: 1; }
+
+.row-5 .row5-a { order: 1; }
+.row-5 .row5-b { order: 2; }
+.row-5 .row5-c { order: 3; }
+
+/* tablet layout adjustments for larger columns */
+@media only screen and (min-width: 480px)  {
+  .col-3 { flex: 0 0 92%; }
+  .col-4 { flex: 0 0 92%; }
+
+  .row-3 .row3-b { order: 1; }
+  .row-3 .row3-a { order: 2; }
+
+  .row-5 .row5-a { order: 1; }
+  .row-5 .row5-c { order: 2; }
+  .row-5 .row5-b { order: 3; }
+}
+
+/* desktop layout adjustments */
+@media only screen and (min-width: 768px) {
+  .col-3 { flex: 0 0 72%; } /* 1-col + 3-col math */
+  .col-4 { flex: 0 0 96%; } /* full width hero */
+
+  .row-3 .row3-a { order: 1; }
+  .row-3 .row3-b { order: 2; }
+
+  .row-5 .row5-a { order: 1; }
+  .row-5 .row5-b { order: 2; }
+  .row-5 .row5-c { order: 3; }
+}
+
+/* unique gallery section for bottom row */
+.row-6.gallery {
+  width: 100%;
+  justify-content: center;
+  gap: 16px;
+  padding: 10px 0 26px;
+}
+
+/* small image thumbnails */
+.thumb {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 0 0 140px;
+  text-align: center;
+}
+.thumb img {
+  width: 100%;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 10px;
+  box-shadow: 0 1px 2px rgba(0,0,0,.05),
+              0 6px 12px rgba(0,0,0,.08);
+}
+.thumb figcaption {
+  margin-top: 8px;
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: #2b1e11;
+  line-height: 1.2;
+}
+
+/* slightly larger thumbnails on wider screens */
+@media only screen and (min-width: 600px) {
+  .thumb { flex-basis: 150px; }
+  .thumb img { height: 110px; }
+}
+@media only screen and (min-width: 960px) {
+  .thumb { flex-basis: 160px; }
+  .thumb img { height: 120px; }
+}
